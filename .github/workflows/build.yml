@@ -1,0 +1,52 @@
+name: build
+on: [push]
+jobs:
+  build:
+    name: Test Guix installation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guix cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/guix
+          # use a key that (almost) never matches
+          key: guix-cache-${{ github.sha }}
+          restore-keys: |
+            guix-cache-
+      # Cannot use a cache for /gnu/store, since restore fails
+      - name: Install Guix
+        uses: PromyLOPh/guix-install-action@v1
+      - name: Ensure no locale warning
+        run: test -z "$(guix --version 2>&1 >/dev/null)"
+      - name: Build hello
+        run: guix build hello
+      # Pack independent binary
+      - name: Pack (Relocatable Binary)
+        run: guix pack --relocatable --save-provenance --root=hello.tar.bz2 --compression=bzip2 hello
+      # Create a docker image
+      - name: Pack (Docker)
+        run: guix pack --save-provenance --format=docker --entry-point=bin/hello --root=hello-docker.tar.gz hello
+      # Create a NAR archive, which can be used on substitute servers or for
+      # `guix archive`
+      - name: Nar
+        run: guix archive --export hello > hello.nar
+      # Upload all artifacts
+      - name: Upload pack (Relocatable Binary)
+        uses: actions/upload-artifact@v2
+        with:
+          name: hello Relocatable Binary
+          path: hello.tar.bz2
+      - name: Upload pack (Docker)
+        uses: actions/upload-artifact@v2
+        with:
+          name: hello Docker image
+          path: hello-docker.tar.gz
+      # Store auto-generated signing key as well, so it can be authenticated
+      # later
+      - name: Upload nar
+        uses: actions/upload-artifact@v2
+        with:
+          name: hello nar
+          path: |
+            hello.nar
+            /etc/guix/signing-key.pub

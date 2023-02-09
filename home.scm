@@ -4,20 +4,14 @@
              (guix gexp)
              (gnu home services shells))
 
+(include "packages/emacs.scm")
+
 (home-environment
  (packages
   (map (compose list specification->package+output)
-       (list "emacs-geiser-guile"
-             "emacs-geiser"
-             "pinentry-emacs"
-             "emacs-exwm"
-             "gnome-maps"
-             "pipe-viewer"
-             "emacs"
-             "pavucontrol"
+       (list "samacs"
              "git"
              "xterm"
-             "qemu"
              "openssh")))
  (services
   (list (service home-bash-service-type
@@ -26,5 +20,4 @@
                    '(("grep" . "grep --color=auto")
                      ("ll" . "ls -l")
                      ("ls" . "ls -p --color=auto")
-                     ("qemu" . "qemu-system-x86_64 -enable-kvm -m 512")
                      ("rm" . "rm --one-file-system"))))))))
