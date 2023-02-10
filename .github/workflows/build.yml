@@ -18,7 +18,7 @@ jobs:
         name: Checkout repo
       - run: find .
       - name: Install Guix
-        uses: ./.github/workflows/action.yml # PromyLOPh/guix-install-action@v1
+        uses: ./action.yml
       - name: Ensure no locale warning
         run: test -z "$(guix --version 2>&1 >/dev/null)"
       - name: Build hello
