@@ -11,7 +11,7 @@
 (require 'tramp)
 
 (defvar utils/sorted-absolute-init-scripts)
-(let* ((emacs-dir (file-name-as-directory "~/.emacs.d"))
+(let* ((emacs-dir (file-name-as-directory (expand-file-name "emacs" (getenv "XDG_CONFIG_HOME"))))
        (default-directory emacs-dir)
        (init-scripts (file-expand-wildcards "???-*.el"))
        (sorted-init-scripts (sort init-scripts 'string=)))
