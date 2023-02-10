@@ -20,6 +20,10 @@ inputs:
     description: 'Run `guix pull` after installing Guix'
     required: false
     default: true
+  guixVersion:
+    description: 'The version of guix to install'
+    required: true
+    default: 1.4.0
 outputs:
   channels:
     description: 'Exact Guix channels that were used for this action.'
@@ -34,7 +38,7 @@ runs:
       name: Set LANG
     - run: |
         wget -nv https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh -O guix-install.sh
-        wget -nv https://ci.guix.gnu.org/search/latest/archive?query=spec:tarball+status:success+system:x86_64-linux+guix-binary.tar.xz -O guix-binary-nightly.x86_64-linux.tar.xz
+	wget -nv https://ftp.gnu.org/gnu/guix/guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.xz -O guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.gz
       shell: bash
       name: Download
     - run: |
@@ -43,7 +47,7 @@ runs:
       shell: bash
       name: Fetch key
     - run: |
-        export GUIX_BINARY_FILE_NAME=guix-binary-nightly.x86_64-linux.tar.xz
+	export GUIX_BINARY_FILL_NAME=guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.gz
         sudo --preserve-env=GUIX_BINARY_FILE_NAME -- bash -c 'yes | bash guix-install.sh'
       shell: bash
       name: Install Guix
