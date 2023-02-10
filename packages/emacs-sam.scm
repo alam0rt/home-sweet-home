@@ -1,4 +1,4 @@
-(define-module (gnu packages samacs)
+(define-module (emacs-sam)
   #:use-module (guix packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages aspell)
@@ -15,18 +15,15 @@
   #:use-module ((guix licenses) #:prefix license:)
   )
 
-(define-public samacs
+(define-public emacs-sam
   (package
    (inherit emacs)
-   (name "samacs")
+   (name "emacs-sam")
    ;; (inputs
    ;;  `(("gnu-make"                        ,gnu-make)))
    (propagated-inputs  ;;installed in the store and present in the profile
     `(("aspell"                          ,aspell)
       ("aspell-dict-en"                  ,aspell-dict-en)
-      ("emacs-all-the-icons"             ,emacs-all-the-icons)
-      ("emacs-all-the-icons-dired"       ,emacs-all-the-icons-dired)
-      ("emacs-all-the-icons-gnus"        ,emacs-all-the-icons-gnus)
       ("emacs-alert"                     ,emacs-alert)
       ;; ("emacs-aggressive-fill-paragraph" ,emacs-aggressive-fill-paragraph)
       ("emacs-aggressive-indent"         ,emacs-aggressive-indent)
@@ -41,8 +38,6 @@
       ;; this lets you use the debian pastebin!!!
       ("emacs-debpaste"                  ,emacs-debpaste)
       ("emacs-flycheck"                  ,emacs-flycheck)
-      ("emacs-flycheck-pos-tip"          ,emacs-flycheck-pos-tip)
-      ("emacs-flycheck-color-mode-line"  ,emacs-flycheck-color-mode-line)
       ("emacs-flycheck-guile"            ,emacs-flycheck-guile)
       ("emacs-flx"                       ,emacs-flx)
       ("emacs-geiser"                    ,emacs-geiser)
