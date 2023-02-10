@@ -38,7 +38,7 @@ runs:
       name: Set LANG
     - run: |
         wget -nv https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh -O guix-install.sh
-	wget -nv https://ftp.gnu.org/gnu/guix/guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.xz -O guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.gz
+        wget -nv https://ftp.gnu.org/gnu/guix/guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.xz -O guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.gz
       shell: bash
       name: Download
     - run: |
@@ -47,7 +47,7 @@ runs:
       shell: bash
       name: Fetch key
     - run: |
-	export GUIX_BINARY_FILL_NAME=guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.gz
+        export GUIX_BINARY_FILL_NAME=guix-binary-${INPUT_GUIX-VERSION}.x86_64-linux.tar.gz
         sudo --preserve-env=GUIX_BINARY_FILE_NAME -- bash -c 'yes | bash guix-install.sh'
       shell: bash
       name: Install Guix
