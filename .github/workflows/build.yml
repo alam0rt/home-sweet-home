@@ -20,11 +20,11 @@ jobs:
         uses: alam0rt/guix-install-action@v1-sam
       - name: Ensure no locale warning
         run: test -z "$(guix --version 2>&1 >/dev/null)"
-      - name: Build hello
+      - name: Build WSL2 image
         run: |
           set -x
           IMAGE=$(guix system image --image-type=wsl2 ./wsl.scm)
-          echo "wsl-targz=$IMAGE" >> "$GIHUB_ENV"
+          echo "wsl-targz=$IMAGE" >> $GIHUB_ENV
       # # Pack independent binary
       # - name: Pack (Relocatable Binary) 
       #   run: guix pack --relocatable --save-provenance --root=hello.tar.bz2 --compression=bzip2 hello
