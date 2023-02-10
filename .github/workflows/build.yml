@@ -14,11 +14,8 @@ jobs:
           restore-keys: |
             guix-cache-
       # Cannot use a cache for /gnu/store, since restore fails
-      - uses: actions/checkout@v3
-        name: Checkout repo
-      - run: find .
       - name: Install Guix
-        uses: ./action.yml
+        uses: alam0rt/guix-install-action@v1-sam
       - name: Ensure no locale warning
         run: test -z "$(guix --version 2>&1 >/dev/null)"
       - name: Build hello
