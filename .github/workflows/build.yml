@@ -2,7 +2,7 @@ name: build
 on: [push]
 jobs:
   build:
-    name: Test Guix installation
+    name: The Amazing Guix Build System
     runs-on: ubuntu-latest
     steps:
       - name: Guix cache
