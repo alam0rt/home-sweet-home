@@ -14,7 +14,7 @@ jobs:
           restore-keys: |
             guix-cache-
       - name: Checkout repo
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
       # Cannot use a cache for /gnu/store, since restore fails
       - name: Install Guix
         uses: alam0rt/guix-install-action@v1-sam
